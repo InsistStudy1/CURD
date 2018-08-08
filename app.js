@@ -12,6 +12,9 @@ app.use('/node_modules', express.static('./node_modules'));
 // 配置模板引擎
 app.engine('.html', require('express-art-template'));
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 app.use(router);
 
 app.listen(3000, function () {
