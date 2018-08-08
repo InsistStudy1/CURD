@@ -29,11 +29,23 @@ router.post('/students/new', function (req, res) {
 })
 
 router.get('/students/edit', function (req, res) {
-
+  Student.findById(req.query.id, function (err, data) {
+    if(err) {
+      return res.status(500).send(err);
+    }
+    res.render('edit.html', {
+      student: data
+    })
+  })
 })
 
 router.post('/students/edit', function (req, res) {
-
+  Student.edit(req.body, function (err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.redirect('/students');
+  })
 })
 
 router.get('/students/delete', function (req, res) {
