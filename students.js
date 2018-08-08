@@ -11,8 +11,17 @@ exports.find = function ( callback ) {
   })
 }
 
-exports.findById = function () {
-
+exports.findById = function ( id, callback ) {
+  fs.readFile(dbPath, 'utf8', function (err, data) {
+    if (err) {
+      return callback(err);
+    }
+    var students = JSON.parse(data).students;
+    var stu = students.find(function ( item ) {
+      return item.id === parseInt(id);
+    })
+    callback(null, stu);
+  })
 }
 
 exports.new = function (student, callback) {
@@ -36,8 +45,35 @@ exports.new = function (student, callback) {
   })
 }
 
-exports.edit = function () {
+exports.edit = function ( student, callback ) {
 
+  fs.readFile(dbPath, 'utf8', function (err, data) {
+    if (err) {
+      return callback(err);
+    }
+    var students = JSON.parse(data).students;
+
+    student.id = parseInt(student.id);
+
+    var stu = students.find(function ( item ) {
+      return item.id  = student.id;
+    })
+
+    for(var key in student) {
+      stu[key] = student[key];
+    }
+
+    var fileDate = JSON.stringify({
+      students: students
+    })
+
+    fs.writeFile(dbPath, fileDate, function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null);
+    })
+  })
 }
 
 exports.delete = function () {
