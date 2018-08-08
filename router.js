@@ -15,11 +15,17 @@ router.get('/students', function (req, res) {
 })
 
 router.get('/students/new', function (req, res) {
-
+  res.render('new.html')
 })
 
 router.post('/students/new', function (req, res) {
-
+  console.log(req.body);
+  Student.new(req.body, function (err, data) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.redirect('/students');
+  })
 })
 
 router.get('/students/edit', function (req, res) {
