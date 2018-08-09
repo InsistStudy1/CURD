@@ -13,7 +13,7 @@
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/public/css/main.css" rel="stylesheet">
+    <link href="/public/css/main-f8ae37f0e5.css" rel="stylesheet">
 </head>
 
 <body>
@@ -110,7 +110,7 @@
                     <tr>
                         <td>{{ $value.id }}</td>
                         <td>{{ $value.name }}</td>
-                        <td>{{ $value.gender }}</td>
+                        <td>{{ if $value.gender == 0 }}男{{ else }}女{{ /if }}</td>
                         <td>{{ $value.age }}</td>
                         <td>{{ $value.hobbies }}</td>
                         <td>
