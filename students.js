@@ -56,7 +56,7 @@ exports.edit = function ( student, callback ) {
     student.id = parseInt(student.id);
 
     var stu = students.find(function ( item ) {
-      return item.id  = student.id;
+      return item.id  === student.id;
     })
 
     for(var key in student) {
@@ -76,6 +76,29 @@ exports.edit = function ( student, callback ) {
   })
 }
 
-exports.delete = function () {
+exports.deleteById = function (id, callback) {
+  fs.readFile(dbPath, 'utf8', function (err, data) {
+    if (err) {
+      return callback(err);
+    }
+    var students = JSON.parse(data).students;
 
+    var deleteIndex = students.findIndex(function ( item ) {
+      return item.id  === parseInt(id);
+    })
+
+    students.splice(deleteIndex, 1);
+
+    var fileDate = JSON.stringify({
+      students: students
+    })
+
+    fs.writeFile(dbPath, fileDate, function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null);
+    })
+
+  })
 }

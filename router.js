@@ -19,7 +19,6 @@ router.get('/students/new', function (req, res) {
 })
 
 router.post('/students/new', function (req, res) {
-  console.log(req.body);
   Student.new(req.body, function (err, data) {
     if (err) {
       return res.status(500).send(err);
@@ -49,7 +48,12 @@ router.post('/students/edit', function (req, res) {
 })
 
 router.get('/students/delete', function (req, res) {
-
+  Student.deleteById(req.query.id, function (err, data) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.redirect('/students');
+  })
 })
 
 module.exports = router;
